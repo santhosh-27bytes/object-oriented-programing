@@ -1,0 +1,88 @@
+#include <iostream.h>
+#include <conio.h>
+
+class Employee {
+public:
+    char Emp_name[50], Emp_id[10], Address[100], Mail_id[50];
+    long Mobile_no;
+};
+
+class AssistantProfessor : public Employee {
+public:
+    float BP, DA, HRA, PF, staffClubFund, gross, net;
+
+    void getData() {
+        cout << "Enter Employee Name: ";
+        cin >> Emp_name;
+        cout << "Enter Employee ID: ";
+        cin >> Emp_id;
+        cout << "Enter Address: ";
+        cin >> Address;
+        cout << "Enter Mail ID: ";
+        cin >> Mail_id;
+        cout << "Enter Mobile No: ";
+        cin >> Mobile_no;
+        cout << "Enter Basic Pay (BP): ";
+        cin >> BP;
+    }
+
+    void calculate() {
+        DA = 0.97 * BP;
+        HRA = 0.10 * BP;
+        PF = 0.12 * BP;
+        staffClubFund = 0.001 * BP;
+        gross = BP + DA + HRA;
+        net = gross - (PF + staffClubFund);
+    }
+
+    void display() {
+        cout << "\n----- Employee Details -----";
+        cout << "\nName       : " << Emp_name;
+        cout << "\nEmp ID     : " << Emp_id;
+        cout << "\nAddress    : " << Address;
+        cout << "\nMail ID    : " << Mail_id;
+        cout << "\nMobile No  : " << Mobile_no;
+
+        cout << "\n----- Pay Slip -----";
+        cout << "\nBasic Pay        : " << BP;
+        cout << "\nDA (97%)         : " << DA;
+        cout << "\nHRA (10%)        : " << HRA;
+        cout << "\nPF (12%)         : " << PF;
+        cout << "\nStaff Club Fund  : " << staffClubFund;
+        cout << "\nGross Salary     : " << gross;
+        cout << "\nNet Salary       : " << net << "\n";
+    }
+};
+
+class AssociateProfessor : public AssistantProfessor {};
+class Professor : public AssistantProfessor {};
+
+void main() {
+    clrscr();
+    int choice;
+    cout << "Select Employee Type:\n";
+    cout << "1. Assistant Professor\n2. Associate Professor\n3. Professor\n";
+    cout << "Enter choice: ";
+    cin >> choice;
+
+    if (choice == 1) {
+        AssistantProfessor ap;
+        ap.getData();
+        ap.calculate();
+        ap.display();
+    } else if (choice == 2) {
+        AssociateProfessor asp;
+        asp.getData();
+        asp.calculate();
+        asp.display();
+    } else if (choice == 3) {
+        Professor p;
+        p.getData();
+        p.calculate();
+        p.display();
+    } else {
+        cout << "Invalid choice!";
+    }
+
+    getch();
+}
